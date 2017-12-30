@@ -118,6 +118,40 @@ Parameters:
       - sc1
       - st1
     ConstraintDescription: Must be a valid EC2 volume type.
+Mappings:
+  TrustEntityMaps:
+    cn-north-1:
+      "autoscaling": "autoscaling.amazonaws.com.cn"
+    us-east-1:
+      "autoscaling": "autoscaling.amazonaws.com"
+    us-east-2:
+      "autoscaling": "autoscaling.amazonaws.com"
+    us-west-1:
+      "autoscaling": "autoscaling.amazonaws.com"
+    us-west-2:
+      "autoscaling": "autoscaling.amazonaws.com"
+    ap-south-1:
+      "autoscaling": "autoscaling.amazonaws.com"
+    ap-northeast-1:
+      "autoscaling": "autoscaling.amazonaws.com"
+    ap-northeast-2:
+      "autoscaling": "autoscaling.amazonaws.com"
+    ap-southeast-1:
+      "autoscaling": "autoscaling.amazonaws.com"
+    ap-southeast-2:
+      "autoscaling": "autoscaling.amazonaws.com"
+    ca-central-1:
+      "autoscaling": "autoscaling.amazonaws.com"
+    eu-central-1:
+      "autoscaling": "autoscaling.amazonaws.com"
+    eu-west-1:
+      "autoscaling": "autoscaling.amazonaws.com"
+    eu-west-2:
+      "autoscaling": "autoscaling.amazonaws.com"
+    eu-west-3:
+      "autoscaling": "autoscaling.amazonaws.com"
+    sa-east-1:
+      "autoscaling": "autoscaling.amazonaws.com"
 Conditions:
   CreateEC2LCWithKeyPair:
     !Not [!Equals [!Ref KeyName, '']]
@@ -363,7 +397,7 @@ Resources:
             Effect: "Allow"
             Principal:
               Service:
-                - "autoscaling.amazonaws.com"
+                - !FindInMap [AutoScalingTrustEntityMaps, !Ref "AWS::Region", "autoscaling"]
             Action:
               - "sts:AssumeRole"
       ManagedPolicyArns:
